@@ -15,6 +15,8 @@ namespace ApplicationCore.Entities
 
         public int Temperature { get; set; }
 
+        public double WaterLevel { get; set; }
+
         public bool Circulation { get; set; }
 
         public Guid PoolId { get; set; }

@@ -33,6 +33,8 @@ namespace EntityFramework.Context
 
         public DbSet<User> User { get; set; }
 
+        public DbSet<Group> Group { get; set; }
+
         public DbSet<UserPools> UserPools { get; set; }
     }
 }

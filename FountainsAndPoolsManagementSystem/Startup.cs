@@ -1,3 +1,4 @@
+using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using EntityFramework.Context;
 using FountainsAndPoolsManagementSystem.Hasher;
@@ -40,27 +41,16 @@ namespace FountainsAndPoolsManagementSystem
 
             services.AddTransient<PasswordHasherSHA256>();
 
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ICourseService, CourseService>();
-            services.AddScoped<IMaterialsService, MaterialsService>();
-            services.AddScoped<IInternetMaterialService, InternetMaterialService>();
-            services.AddScoped<IVideoMaterialService, VideoMaterialService>();
-            services.AddScoped<ITextMaterialService, TextMaterialService>();
-            services.AddScoped<ICourseSkillService, CourseSkillService>();
-
             services.AddIdentity<User, Role>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
             })
-                .AddEntityFrameworkStores<PortalDbContext>();
+                .AddEntityFrameworkStores<PoolDbContext>();
 
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/Login";
             });
-
-            services.AddAutoMapper(typeof(UserProfile));
-            services.AddAutoMapper(typeof(SkillViewModelProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
