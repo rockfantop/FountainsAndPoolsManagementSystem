@@ -28,6 +28,10 @@ namespace ApplicationCore.Entities
 
         public Guid OwnerId { get; set; }
 
+        public Guid GroupId { get; set; }
+
+        public Group Group { get; set; }
+
         public List<UserPools> Users { get; set; }
 
         public List<PoolConfiguration> Configurations { get; set; }

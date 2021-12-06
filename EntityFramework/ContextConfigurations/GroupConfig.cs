@@ -7,18 +7,14 @@ using System.Text;
 
 namespace EntityFramework.ContextConfigurations
 {
-    public class PoolConfig : IEntityTypeConfiguration<Pool>
+    public class GroupConfig : IEntityTypeConfiguration<Group>
     {
-        public void Configure(EntityTypeBuilder<Pool> builder)
+        public void Configure(EntityTypeBuilder<Group> builder)
         {
-            builder.ToTable("Pools", "dbo");
+            builder.ToTable("Groups", "dbo");
 
             builder.HasKey(x => x.Id)
                 .IsClustered();
-
-            builder.HasOne(x => x.Group)
-                .WithMany(p => p.Pools)
-                .HasForeignKey(pt => pt.GroupId);
         }
     }
 }

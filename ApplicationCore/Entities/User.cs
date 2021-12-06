@@ -22,5 +22,7 @@ namespace ApplicationCore.Entities
         public int TracksAllowed { get; set; } = 5;
 
         public List<UserPools> Pools { get; set; }
+
+        public List<UserGroups> Groups { get; set; }
     }
 }
