@@ -49,7 +49,7 @@ namespace FountainsAndPoolsManagementSystem
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/Account/Login";
+                options.LoginPath = "/User/Login";
             });
         }
 
@@ -76,9 +76,7 @@ namespace FountainsAndPoolsManagementSystem
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }
