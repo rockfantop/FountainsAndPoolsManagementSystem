@@ -15,6 +15,9 @@ namespace EntityFramework.ContextConfigurations
 
             builder.HasKey(x => x.Id)
                 .IsClustered();
+
+            builder.Property(x => x.Balance)
+                .HasColumnType("DECIMAL");
         }
     }
 }

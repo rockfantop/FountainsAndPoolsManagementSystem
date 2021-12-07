@@ -15,6 +15,8 @@ namespace ApplicationCore.Entities
     {
         public Guid Id { get; set; }
 
+        public string Password { get; set; }
+
         public DateTime DateOfRegistration { get; set; }
 
         public decimal Balance { get; set; }
