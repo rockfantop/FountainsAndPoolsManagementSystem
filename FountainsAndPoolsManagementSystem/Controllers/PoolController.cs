@@ -106,6 +106,28 @@ namespace FountainsAndPoolsManagementSystem.Controllers
             return Ok(new { result = result, id = marker.Id });
         }
 
+        [HttpDelete]
+        [Route("deletemarker")]
+        public async Task<IActionResult> DeleteMarker([FromHeader] string markerId)
+        {
+            var result = "Successfully deleted";
+
+            try
+            {
+                var marker = await this.markerRepo.GetAsync(new Specification<Marker>(marker => marker.Id == Guid.Parse(markerId)));
+
+                await this.markerRepo.RemoveAsync(marker);
+
+                await this.markerRepo.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return Ok(new { result = result, id = markerId });
+        }
+
         [HttpPost]
         [Route("addconfig")]
         public async Task<IActionResult> AddConfig([FromBody] PoolConfiguration config)
