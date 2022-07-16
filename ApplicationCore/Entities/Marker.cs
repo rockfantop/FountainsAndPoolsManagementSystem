@@ -5,16 +5,14 @@ using System.Text;
 
 namespace ApplicationCore.Entities
 {
-    public class UserPools : BaseDbEntity
+    public class Marker : BaseDbEntity
     {
-        public Guid Id { get; set; }
+        public double Long { get; set; }
 
-        public string UserId { get; set; }
+        public double Lat { get; set; }
 
         public Guid PoolId { get; set; }
 
-        public Pool Pool { get; set; }
-
-        public User User { get; set; }
+        public Guid CityId { get; set; }
     }
 }

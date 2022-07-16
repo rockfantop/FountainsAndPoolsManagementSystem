@@ -7,11 +7,11 @@ using System.Text;
 
 namespace EntityFramework.ContextConfigurations
 {
-    public class PoolScheduleConfig : IEntityTypeConfiguration<PoolSchedule>
+    public class RoadConfig : IEntityTypeConfiguration<Road>
     {
-        public void Configure(EntityTypeBuilder<PoolSchedule> builder)
+        public void Configure(EntityTypeBuilder<Road> builder)
         {
-            builder.ToTable("PoolSchedules", "dbo");
+            builder.ToTable("Roads", "dbo");
 
             builder.HasKey(x => x.Id)
                 .IsClustered();

@@ -14,14 +14,6 @@ namespace EntityFramework.ContextConfigurations
             builder.ToTable("UserPools", "dbo");
 
             builder.HasKey(x => new { x.PoolId, x.UserId });
-
-            builder.HasOne(x => x.User)
-                .WithMany(p => p.Pools)
-                .HasForeignKey(pt => pt.UserId);
-
-            builder.HasOne(x => x.Pool)
-                .WithMany(p => p.Users)
-                .HasForeignKey(pt => pt.PoolId);
         }
     }
 }

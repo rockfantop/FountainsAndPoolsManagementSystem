@@ -6,15 +6,8 @@ using System.Text;
 
 namespace ApplicationCore.Entities
 {
-    public class Role : IdentityRole<Guid>
+    public class User : IdentityUser
     {
-        public string Name { get; set; }
-    }
-
-    public class User : IdentityUser<Guid>
-    {
-        public Guid Id { get; set; }
-
         public string Password { get; set; }
 
         public DateTime DateOfRegistration { get; set; }

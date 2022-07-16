@@ -6,6 +6,7 @@ using Infrastructure.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,25 +32,30 @@ namespace FountainsAndPoolsManagementSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<PoolDbContext>(c =>
                     c.UseSqlServer(Configuration.GetConnectionString("PoolsManagementSystem")));
 
             services.AddScoped<DbContext>(c => c.GetRequiredService<PoolDbContext>());
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<SignInManager<User>>();
 
             services.AddTransient<PasswordHasherSHA256>();
 
-            services.AddIdentity<User, Role>(options =>
+            services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
             })
                 .AddEntityFrameworkStores<PoolDbContext>();
 
-            services.ConfigureApplicationCookie(options =>
+            services.AddCors(options =>
             {
-                options.LoginPath = "/User/Login";
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
             });
         }
 
@@ -70,6 +76,8 @@ namespace FountainsAndPoolsManagementSystem
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();

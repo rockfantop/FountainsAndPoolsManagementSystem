@@ -8,7 +8,7 @@ using System.Text;
 
 namespace EntityFramework.Context
 {
-    public class PoolDbContext : IdentityDbContext<User, Role, Guid>
+    public class PoolDbContext : IdentityDbContext<User>
     {
         public PoolDbContext(DbContextOptions<PoolDbContext> options) : base(options)
         {
@@ -36,5 +36,17 @@ namespace EntityFramework.Context
         public DbSet<Group> Group { get; set; }
 
         public DbSet<UserPools> UserPools { get; set; }
+
+        public DbSet<UserGroups> UserGroups { get; set; }
+
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<CityRoad> CityRoads { get; set; }
+
+        public DbSet<FireStation> FireStations { get; set; }
+
+        public DbSet<Marker> Markers { get; set; }
+
+        public DbSet<Road> Roads { get; set; }
     }
 }

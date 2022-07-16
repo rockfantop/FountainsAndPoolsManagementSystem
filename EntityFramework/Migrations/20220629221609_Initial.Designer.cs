@@ -4,14 +4,16 @@ using EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFramework.Migrations
 {
     [DbContext(typeof(PoolDbContext))]
-    partial class PoolDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220629221609_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,7 +131,6 @@ namespace EntityFramework.Migrations
             modelBuilder.Entity("ApplicationCore.Entities.Pool", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Availability")
@@ -150,9 +151,6 @@ namespace EntityFramework.Migrations
                     b.Property<Guid>("MarkerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("MarkerId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -166,8 +164,6 @@ namespace EntityFramework.Migrations
                         .IsClustered();
 
                     b.HasIndex("GroupId");
-
-                    b.HasIndex("MarkerId1");
 
                     b.ToTable("Pools", "dbo");
                 });
@@ -549,8 +545,10 @@ namespace EntityFramework.Migrations
                         .HasForeignKey("GroupId");
 
                     b.HasOne("ApplicationCore.Entities.Marker", "Marker")
-                        .WithMany()
-                        .HasForeignKey("MarkerId1");
+                        .WithOne("Pool")
+                        .HasForeignKey("ApplicationCore.Entities.Pool", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Marker");
                 });
@@ -678,6 +676,11 @@ namespace EntityFramework.Migrations
                     b.Navigation("Pools");
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("ApplicationCore.Entities.Marker", b =>
+                {
+                    b.Navigation("Pool");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Pool", b =>

@@ -15,14 +15,6 @@ namespace EntityFramework.ContextConfigurations
 
             builder.HasKey(x => x.Id)
                 .IsClustered();
-
-            builder.HasOne(x => x.User)
-                .WithMany(p => p.Groups)
-                .HasForeignKey(pt => pt.UserId);
-
-            builder.HasOne(x => x.Group)
-                .WithMany(p => p.Users)
-                .HasForeignKey(pt => pt.GroupId);
         }
     }
 }

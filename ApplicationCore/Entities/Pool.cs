@@ -9,7 +9,9 @@ namespace ApplicationCore.Entities
     {
         SwimmingPool,
         Fountain,
-        Tank
+        Tank,
+        Hatch,
+        WaterPoint
     }
 
     public class Pool : BaseDbEntity
@@ -22,15 +24,17 @@ namespace ApplicationCore.Entities
 
         public int Height { get; set; }
 
+        public bool Availability { get; set; }
+
         public PoolsTypes PoolType { get; set; }
 
         public Guid ConfigurationId { get; set; }
 
         public Guid OwnerId { get; set; }
 
-        public Guid GroupId { get; set; }
+        public Marker Marker { get; set; }
 
-        public Group Group { get; set; }
+        public Guid MarkerId { get; set; }
 
         public List<UserPools> Users { get; set; }
 
